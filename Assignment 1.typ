@@ -9,9 +9,8 @@ Kaleb Kim
 == Problem 1
 a) *Loop Invariant*: At the start of each iteration, the greatest common divisor (GCD) of $x$ and $y$ is the same as the GCD of the original input integers $a$ and $b$. In other words, $gcd(x, y) = gcd(a, b)$
 
-b)
-- *Initialization:* Before the first iteration, $x = a$ and $y = b$. Since these values are the same, $gcd(x, y) = gcd(a, b)$.
-- *Maintenance*: Assume that at the start of the first iteration, the statement $gcd(x, y) = gcd(a, b)$ holds. In the loop, there are two cases:
+b) *Initialization:* Before the first iteration, $x = a$ and $y = b$. Since these values are the same, $gcd(x, y) = gcd(a, b)$.
+- *Maintenance*: At the start of the first iteration, the statement $gcd(x, y) = gcd(a, b)$ is true. In the loop, there are two cases:
 
   Case 1: $x > y$. In this case, $x = x - y$. Subtracting the smaller number, $y$, does not change the GCD. For proof, let $c = gcd(x - y, y)$, in which $c in bb(Z)$ and $x > y$. By definition, $c (x-y) = c y$. Distributing, $c x - c y = c y$. Solving, $c x = 2c y = c (2y)$. As both sides of the equation remain integers, $c = gcd(x, 2y) = gcd(x - y, y) = gcd(x, y)$.
 
