@@ -43,4 +43,11 @@ b) - *Loop Invariant:* If there exists a pair of indices $i'$ and $j'$ such that
 - *Termination*: The loop terminates when $i >= n$ or $j < 0$ or if a valid pair in which $A[i] + B[j] = x$ exists. If the loop terminates by the condition $i >= n$ or $j < 0$, then no valid pair is found.
 
 == Problem 3
-a) 
+a) #pseudocode-list[
++ *procedure* FINDPAIR(m, n):
+  + l ← m
+  + p ← n
+  + *while* l > 0 and p > 0:
+    + *if* 
+  + return FALSE
+]
