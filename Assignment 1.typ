@@ -80,10 +80,9 @@ b)
 - *Maintenance*: At the start of each iteration, two animals are picked. There are three resulting cases:
   - Lydian ($l$) and Lydian ($l$): As $l <- l-1$, $p$ is unchanged. $p mod 2 = p mod 2$, so the parity of $p$ remains unchanged.
   - Pisidian ($p$) and Pisidian ($p$): Both Pisidians kill each other, so $p <- p-2$. This means:
-  $
-  (p - 2) mod 2 = p mod 2 - 2 mod 2 = p mod 2
-  $
-  #show: fix-indent()
+    $
+    (p - 2) mod 2 = p mod 2 - 2 mod 2 = p mod 2
+    $
     Thus, the parity of $p$ remains unchanged.
   - Lydian ($l$) + Pisidian ($p$): $l <- l-1$, similar to the first case. Thus, the parity of $p$ also remains unchanged.
 As the parity of $p$ does not change in all cases, the loop invariant holds.
