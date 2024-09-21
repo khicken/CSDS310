@@ -1,11 +1,16 @@
 #import "@preview/lovelace:0.3.0": pseudocode-list
+#import "@preview/indenta:0.0.3": fix-indent
 
 #set align(right)
-Kaleb Kim
+Kaleb Kim \
+9/20/24
 
 #set align(center)
 = CSDS 310 Assignment 1
 #set align(left)
+
+_Note: Arrays are zero-indexed._
+
 == Problem 1
 a) *Loop Invariant*: At the start of each iteration, the greatest common divisor (GCD) of $x$ and $y$ is the same as the GCD of the original input integers $a$ and $b$. In other words, $gcd(x, y) = gcd(a, b)$
 
@@ -15,6 +20,8 @@ b) *Initialization:* Before the first iteration, $x = a$ and $y = b$. Since thes
   Case 1: $x > y$. In this case, $x = x - y$. Subtracting the smaller number, $y$, does not change the GCD. For proof, let $c = gcd(x - y, y)$, in which $c in bb(Z)$ and $x > y$. By definition, $c (x-y) = c y$. Distributing, $c x - c y = c y$. Solving, $c x = 2c y = c (2y)$. As both sides of the equation remain integers, $c = gcd(x, 2y) = gcd(x - y, y) = gcd(x, y)$.
 
   Case 2: $x ≤ y$. In this case, $y = y - x$. This uses the same proof as Case 1, in which $gcd(x, y) = gcd(x, y - x)$.
+
+  As the $gcd$ remains same, the loop invariant holds.
 
 - *Termination*: The loop terminates when $x = y$. By the loop invariant, $gcd(a, b) = gcd(x, y)$.
 
@@ -34,20 +41,50 @@ a) #pseudocode-list[
       + i ← i + 1
     + *else*:
       + j ← j - 1
-  + return FALSE
+  + *return* FALSE
 ]
 
-b) - *Loop Invariant:* If there exists a pair of indices $i'$ and $j'$ such that $A[i'] + B[j'] = x$, then the pair must be found at $i, j$ or in the subarrays $A[i+1 ... n-1]$ and $B[0 ... j-1]$. If there does not exist such a pair, the procedure returns FALSE.
-- *Initialization:* Before the loop, $i = 0$ and j$ = n - 1$,  we need to check if $A[i] + B[j] = A[0] + B[n - 1] = x$ is true. If $A[0] + B[n - 1] = x$, the algorithm immediately returns the correct answer. Else, we haven't traversed the subarrays $A[0 ... i+1]$ and $[0 ... j-1]$. Thus, the loop invariant holds.
-- *Maintenance*: At each step, we either increment $i$ or decrement $j$ based on the value of $A[i] + B[j]$. We have two other cases in this loop. If $A[i] + B[j] < x$, we need a larger value that we will pull from $A$, so we increment $i$. In the other case, if $A[i] + B[j] > x$, we need a smalelr value that we will pull from $B$, so we decrement $j$.
-- *Termination*: The loop terminates when $i >= n$ or $j < 0$ or if a valid pair in which $A[i] + B[j] = x$ exists. If the loop terminates by the condition $i >= n$ or $j < 0$, then no valid pair is found.
+b)
+- *Loop Invariant*: At the start of each iteration, if $A[i] + B[j] = x$, then indices $i, j$ exist in the subarrays $A[i...n-1]$ and $B[0...j]$.
+- *Initialization*: Initially, $i = 0$ and $j = n-1$ so the subarrays in the loop invariant are $A[0...n-1]$ and $B[0...n-1]$, which are over the entire arrays $A$ and $B$. Thus, the loop invariant holds initially.
+- *Maintenance*: At the start of each iteration, if $A[i] + B[j] = x$, then indices $i, j$ exist in the subarrays $A[i...n-1]$ and $B[0...j]$, which are returned. Else, given that $A, B$ are sorted in nondecreasing order:
+ $
+ A[i + 1] >= A[i] \
+ A[i + 1] + B[j] >= A[i] + B[j] \
+ $ and $
+ B[j - 1] <= B[j] \
+ A[i] + B[j - 1] <= A[i] + B[j]
+ $
+ This means that if $A[i] + B[j] < x$, we increment $i$ by 1, maintaining the subarray A[i...n-1]. Otherwise, in the other case that $A[i] + B[j] > x$, we decrement $j$ by 1, maintaining the subarray B[0...j].
+- *Termination*: The loop terminates if $A[i] + B[j] = x$ exists, since it returns the existing indices of $i, j$ in subarrays $A[i...n-1]$ and $B[0...j]$, satisfying the loop invariant. Else, when $i >= n$ or $j < 0$, meaning $x$ does not exist in either subarray $A[i...n-1]$ or $B[0...j]$, no valid pair is found and the algorithm returns FALSE.
 
 == Problem 3
-a) #pseudocode-list[
-+ *procedure* FINDPAIR(m, n):
+#pseudocode-list[
++ *procedure* NATURALSELECTION(m, n):
   + l ← m
   + p ← n
-  + *while* l > 0 and p > 0:
-    + *if* 
-  + return FALSE
+  + *while* l + p > 1:
+    + _pick two animals_
+    + *if* both Pisidians *then*
+      + p $<-$ p - 2
+      + l $<-$ l + 1
+    + *else*:
+      + l $<-$ l - 1
+  + *if* p mod 2 = 1:
+    + *return* PISIDIAN
+  + *else*:
+    + *return* LYDIAN
 ]
+- *Loop Invariant*: At the start of each iteration, the parity of initial number of Pisidians $n$ is the same as the remaining number of is Pisidians $p$. In other words, $p mod 2 = n mod 2$.
+- *Initialization*: Intially, $l = m$ and $p = n$. Substituting in the loop variant, $n mod 2 = n mod 2$. Thus, the loop invariant holds.
+- *Maintenance*: At the start of each iteration, two animals are picked. There are three resulting cases:
+  - Lydian ($l$) and Lydian ($l$): As $l <- l-1$, $p$ is unchanged. $p mod 2 = p mod 2$, so the parity of $p$ remains unchanged.
+  - Pisidian ($p$) and Pisidian ($p$): Both Pisidians kill each other, so $p <- p-2$. This means:
+  $
+  (p - 2) mod 2 = p mod 2 - 2 mod 2 = p mod 2
+  $
+  #show: fix-indent()
+    Thus, the parity of $p$ remains unchanged.
+  - Lydian ($l$) + Pisidian ($p$): $l <- l-1$, similar to the first case. Thus, the parity of $p$ also remains unchanged.
+As the parity of $p$ does not change in all cases, the loop invariant holds.
+- *Termination*: The loop terminates when there is one individual left, or $l + p = 1$. By the loop invariant, as the parity of $n$ equals the parity of $p$, $p mod 2 = 1$ means that $p = 1$, thus the last standing population is the Pisidians. Otherwise, the last standing popuation is the Lydians.
