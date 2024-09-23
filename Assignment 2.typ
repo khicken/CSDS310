@@ -1,5 +1,5 @@
 #import "@preview/lovelace:0.3.0": pseudocode-list
-#import "@preview/indenta:0.0.3": fix-indent
+#set enum(numbering: "ai)")
 
 #set align(right)
 Kaleb Kim \
@@ -12,4 +12,9 @@ Kaleb Kim \
 _Note: Arrays are zero-indexed._
 
 == Problem 1
-a) 
++ $f(n) = Omega(g(n))$
++ $f(n) = w$
++ ??
+
+== Problem 2
++ 

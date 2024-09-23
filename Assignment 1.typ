@@ -1,5 +1,4 @@
 #import "@preview/lovelace:0.3.0": pseudocode-list
-#import "@preview/indenta:0.0.3": fix-indent
 
 #set align(right)
 Kaleb Kim \
