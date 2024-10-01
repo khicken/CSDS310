@@ -13,7 +13,7 @@ _Note: Arrays are zero-indexed._
 
 == Problem 1
 + $f(n) = o(g(n))$, because:
-  - $lim_(n->infinity)$
+  - $op("lim", limits: #true)_(n->infinity) n$
 + $f(n) = o(g(n))$, because:
 + $f(n) = O(g(n))$, because:
 
