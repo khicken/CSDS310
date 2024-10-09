@@ -73,17 +73,19 @@ _Note: Arrays are zero-indexed._
 + Converting $T(n)$ to Master Theorem form, $T(n) = a T(n/b) + Theta(n^d)$. This falls under Case 2, thus $T(n)=Theta(n log n)$
 + yeah
 == Problem 4
-This is an incomplete merge sort. So let's complete it. We'll use two procedures (methods) to accomplish this: one to loop through the entire array until A contains one subarray of length $n$.
+Pseudocode:
 #pseudocode-list[
 + *procedure* MERGE(A, n):
-  + *if* $n_A$ = 1:
+  + *if* $n_A$ == 1:
     + *return* A
   + A' ← Array of $ceil(n/2)$ elements
-  + *for* $0 <= i <= n-1$:
+  + *for* $0 <= i < floor(n slash 2)$:
     + A'[i] ← SUBMERGE(A[2i], A[2i+1])
+  + *if* $n$ is odd:
+    + A'[$n slash 2$] ← A[$n-1$] \/\/ Put last element in A'
   + *return* MERGE(A')
 ]
-Then, the merging of two subarrays, cleverly named:
+The merging of two subarrays, cleverly named:
 #pseudocode-list[
 + *procedure* SUBMERGE(A, B):
   + i ← 0
@@ -103,4 +105,8 @@ Then, the merging of two subarrays, cleverly named:
   + *return* C
 ]
 
-Does this need a proof? Yeah, probably
+Proof:
+We'll break up this proof in two: One for `SUBMERGE` and one for `MEGE`
+
+Runtime analysis:
+We can apply the Master Theorem since we have a recursive case in which the merging is linear, 
