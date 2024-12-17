@@ -1,5 +1,7 @@
 import copy
 from bisect import bisect as upper_bound
+
+# O(N^2) SOLUTION (checker)
 def starmaxxing(S) -> int:
     n = len(S)
     c = 0
@@ -12,6 +14,7 @@ def starmaxxing(S) -> int:
                 A[j] += S[j+i+1]
     return c
 
+# O(N) MODIFIED SOLUTION W/ COMMENTS
 def starmaxxing2_(S) -> int:
     n = len(S)
     cur_sum = 0
@@ -42,7 +45,7 @@ def starmaxxing2_(S) -> int:
         c += cc_g0 # update total count for all subarrays w/ sum>0
     return c
 
-
+# O(N) MODIFIED SOLUTION W/O COMMENTS
 def starmaxxing2(S) -> int:
     n = len(S)
     cs = 0
@@ -67,7 +70,8 @@ def starmaxxing2(S) -> int:
         c += cc_g0
     return c
 
-def starmaxxing3(S) -> int: # solution pulled
+# O(N) ORIGINAL SOLUTION PULLED
+def starmaxxing3(S) -> int:
     MOD = 1000000007
     from collections import defaultdict
     cur_sum = 0
@@ -90,7 +94,15 @@ def starmaxxing3(S) -> int: # solution pulled
         ans = (ans + cur_count_1) % MOD
     return ans
 
-tests = [[0,1,1,0,1],[1,0,1,1,0,1],[1,1,1,0,1],[1,0,1,1],[1,1],[1,1,0,0,0,0,0,0,1,1,1,1,0,0,0]]
+tests = [
+    [1,0,1,0,1],
+    [0,1,1,0,1],
+    [1,0,1,1,0,1],
+    [1,1,1,0,1],
+    [1,0,1,1],
+    [1,1],
+    [1,1,0,0,0,0,0,0,1,1,1,1,0,0,0],
+]
 for t in tests:
     print(f'testing {t}')
-    print(f'{starmaxxing(t)} {starmaxxing3(t)}')
+    print(f'{starmaxxing(t)} {starmaxxing2(t)}')
